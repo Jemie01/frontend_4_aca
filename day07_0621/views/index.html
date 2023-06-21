@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>views/index.html</h1>
+    <div>여러분들이 제작한 포폴 메인페이지</div>
+
+    <!-- <script>
+        // get 방식으로 추가한거
+        fetch('http://localhost:3000')
+        .then(res=>res.json())
+        .then(res=>console.log(res));
+    </script> -->
+    <script>
+        // POST
+        fetch('http://localhost:3000/user', {
+            method: 'POST',
+            body: JSON.stringify({user: 'heachan'}),
+            headers: {'Content-type': 'application/json'}
+        })
+        .then(res=>res.json())
+        .then(res=>console.log(res));
+    </script>
+    <script>
+        // DELETE
+        fetch('http://localhost:3000/user/haechan', {
+            method: 'DELETE',
+            body: JSON.stringify({user: 'heachan'}),
+            headers: {'Content-type': 'application/json'}
+        })
+        .then(res=>res.json())
+        .then(res=>console.log(res));
+    </script>
+    <script>
+        // 수정: PUT, PATCH
+        fetch('http://localhost:3000/user/haechan', {
+            method: 'PUT',
+            body: JSON.stringify({user: 'heachan'}),
+            headers: {'Content-type': 'application/json'}
+        })
+        .then(res=>res.json())
+        .then(res=>console.log(res));
+    </script>
+</body>
+</html>
