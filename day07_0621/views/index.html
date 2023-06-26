@@ -9,41 +9,50 @@
     <h1>views/index.html</h1>
     <div>여러분들이 제작한 포폴 메인페이지</div>
 
-    <!-- <script>
-        // get 방식으로 추가한거
-        fetch('http://localhost:3000')
-        .then(res=>res.json())
-        .then(res=>console.log(res));
-    </script> -->
+    <h1>user</h1>
+    <input type="text" id="user_name">
+    <button id="user_name_btn">user 확인</button>
+    <div class="log_user"></div>
+
+    <h1>users</h1>
+    <button id="users_btn">user 확인</button>
+    <div class="log_users"></div>
+
     <script>
-        // POST
-        fetch('http://localhost:3000/user', {
-            method: 'POST',
-            body: JSON.stringify({user: 'heachan'}),
-            headers: {'Content-type': 'application/json'}
+        const unb = document.querySelector('#user_name_btn');
+        unb.addEventListener('click', ()=>{
+            const user_name = document.querySelector('#user_name');
+            const value = user_name.value;
+            // console.log(value);
+
+            const user_api = `http://localhost:3000/last_name=${value}`;
+            fetch(user_api)
+            .then(res=>res.json())
+            .then(res=>{
+                // console.log(res);
+                const log_user = document.querySelector('.log_user');
+                log_user.innerHTML = `first_name: ${res.first_name}, last_name: ${res.last_name}`
+                user_name.value = '';
+            })
         })
-        .then(res=>res.json())
-        .then(res=>console.log(res));
     </script>
     <script>
-        // DELETE
-        fetch('http://localhost:3000/user/haechan', {
-            method: 'DELETE',
-            body: JSON.stringify({user: 'heachan'}),
-            headers: {'Content-type': 'application/json'}
+        // localhost:3000/users
+        const users_btn = document.querySelector('#users_btn');
+        users_btn.addEventListener('click', ()=>{
+            const user_api = `http://localhost:3000/users`;
+            fetch(user_api)
+            .then(res=>res.json())
+            .then(res=>{
+                // console.log(res.length);
+                // const str = `이름: ${res.first_name}, 성: ${res.last_name}`
+                let str = ``
+                res.forEach(data=>{
+                    str += `<div> 이름: ${data.first_name}, 성: ${data.last_name} </div>`
+                })
+                document.querySelector('.log_users').innerHTML = str;
+            })
         })
-        .then(res=>res.json())
-        .then(res=>console.log(res));
-    </script>
-    <script>
-        // 수정: PUT, PATCH
-        fetch('http://localhost:3000/user/haechan', {
-            method: 'PUT',
-            body: JSON.stringify({user: 'heachan'}),
-            headers: {'Content-type': 'application/json'}
-        })
-        .then(res=>res.json())
-        .then(res=>console.log(res));
     </script>
 </body>
 </html>
